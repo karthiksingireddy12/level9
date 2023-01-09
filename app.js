@@ -16,10 +16,10 @@ app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
   const allToDos = await Todo.getTodos();
-  const overDue = await Todo.overdue();
+  const overDue = await Todo.overDue();
   const dueLater = await Todo.dueLater();
-  const dueTodayNow = await Todo.dueToday();
-  const completedItem = await Todo.completedItems();
+  const dueTodayNow = await Todo.dueTodayNow();
+  const completedItem = await Todo.completedItem();
   if (request.accepts("html")) {
     response.render("index", {
       title: "Todo Application",
