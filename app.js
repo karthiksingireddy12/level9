@@ -16,22 +16,22 @@ app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
   const allToDos = await Todo.getTodos();
-  const overDue = await Todo.overDue();
+  const overdue = await Todo.overdue();
   const dueLater = await Todo.dueLater();
-  const dueTodayNow = await Todo.dueTodayNow();
-  const completedItem = await Todo.completedItem();
+  const dueToday = await Todo.dueToday();
+  const completedItems = await Todo.completedItems();
   if (request.accepts("html")) {
     response.render("index", {
       title: "Todo Application",
       allToDos,
-      overDue,
+      overdue,
       dueLater,
-      dueTodayNow,
-      completedItem,
+      dueToday,
+      completedItems,
       csrfToken: request.csrfToken(),
     });
   } else {
-    response.json(overDue, dueLater, dueTodayNow, completedItem);
+    response.json(overdue, dueLater, dueToday, completedItems);
   }
 });
 
